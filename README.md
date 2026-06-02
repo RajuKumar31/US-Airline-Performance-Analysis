@@ -173,9 +173,9 @@ These actions could significantly improve OTP performance and reduce operational
 
 ## Author
 
-Raju Kumar S
-Data Analyst | Bengaluru, India
+Raju Kumar S  
+Data Analyst | Bengaluru, India  
 
-GitHub: github.com/RajuKumar31
-LinkedIn: linkedin.com/in/rajukumarsahani
-Tableau: public.tableau.com/app/profile/raju.kumar.s1115
+- GitHub: [RajuKumar31](https://github.com/RajuKumar31)
+- LinkedIn: [rajukumarsahani](https://linkedin.com/in/rajukumarsahani)
+- Tableau: [Raju Kumar S](https://public.tableau.com/app/profile/raju.kumar.s1115)

@@ -64,13 +64,13 @@ The original dataset contains approximately 5.8 million records. A sample datase
 ## Dashboard Screenshots
 
 ### Executive Overview
-![Executive Overview](reports/screenshots/executive_overview.png)
+![Executive Overview] ![alt text](executive_overview.png)
 
 ### Airline Performance
-![Airline Performance](reports/screenshots/airline_performance.png)
+![Airline Performance] ![alt text](airline_performance.png)
 
 ### Airport and Route Analysis
-![Airport Route Analysis](reports/screenshots/airport_route_analysis.png)
+![Airport Route Analysis] ![alt text](airport_route_analysis-2.png)
 
 ## Dashboard Pages
 

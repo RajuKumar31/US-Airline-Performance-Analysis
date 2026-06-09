@@ -1,181 +1,114 @@
 # U.S. Airline Performance & Delay Analysis
 
-## Project Overview
+End-to-end data analytics project analysing 5.8 million U.S. domestic flight records from 2015 to identify delay patterns, cancellation trends, airline performance rankings, and airport congestion hotspots.
 
-This is an end-to-end data analytics project analysing 1,048,575 U.S. domestic flights to identify delay patterns, cancellation trends, airline performance rankings, and airport congestion hotspots.
-
-The project was built using PostgreSQL for data storage, cleaning, exploratory analysis, and KPI creation, while Power BI was used for interactive dashboard reporting and business storytelling.
+Built using PostgreSQL and SQL for data processing and analysis, and Power BI for interactive dashboard reporting.
 
 ---
 
 ## Business Problem
 
-The U.S. airline industry continues to operate below the industry standard 80% on-time performance benchmark. Frequent delays, cancellations, and airport congestion negatively impact customer experience and operational efficiency.
-
-This project analyses airline operational performance across 14 major carriers to identify:
-
-* Delay trends
-* Root causes of disruptions
-* Airport congestion patterns
-* Cancellation behaviour
-* Best and worst performing airlines
-
-The goal is to provide actionable business recommendations that can help improve operational reliability and overall customer satisfaction.
+The U.S. airline industry faces persistent punctuality challenges that cost airlines millions in operational recovery and damage passenger trust. This project identifies the root causes of delays and cancellations, ranks airline and airport performance across 14 carriers and 322 airports, and delivers actionable recommendations for operations teams.
 
 ---
 
-## Tools Used
+## Tools and Technologies
 
-| Tool       | Purpose                                          |
-| ---------- | ------------------------------------------------ |
-| PostgreSQL | Data storage, cleaning, EDA, KPI development     |
-| SQL        | Exploratory analysis, KPI queries, view creation |
-| Power BI   | Dashboard development and reporting              |
-| DAX        | Calculated measures and KPI calculations         |
+| Tool | Purpose |
+|---|---|
+| PostgreSQL | Data storage, cleaning, transformation, and KPI development |
+| SQL | Exploratory analysis, view creation, and analytical queries |
+| Power BI | Four-page interactive dashboard |
+| DAX | Calculated measures and KPIs |
+| Excel | Initial data inspection and validation |
 
 ---
 
 ## Dataset
 
-* Source: U.S. Department of Transportation (2015)
-* Total Records Analysed: 1,048,575 flights
-* Airlines: 14 carriers
-* Airports: 322 airports
-
-Note:
-The original dataset contains approximately 5.8 million records. A sample dataset was used due to Excel row limitations and system performance considerations.
+- Source: U.S. Department of Transportation (2015)
+- Size: 5,819,079 flight records
+- Airlines: 14 carriers
+- Airports: 322 U.S. airports
+- Key view: vw_flight_analysis — consolidated view joining flights, airlines, and airports into a single analytical table
 
 ---
 
-## Key Findings
+## Dashboard Pages
 
-* Industry on-time performance is 78.08%, below the 80% benchmark
-* Alaska Airlines recorded the highest OTP at 86.51%
-* Frontier Airlines recorded the lowest OTP at 63.28%
-* Late aircraft propagation contributes 38% of all delay minutes
-* Carrier delays account for 31% of delays and are largely operational
-* Weather contributes only 5.44% of total delays
-* American Eagle shows an 11.79% cancellation rate
-* Chicago O’Hare and New York airports are major congestion hotspots
-* BWI to DFW is the most delayed route with an average delay of 71.91 minutes
+| Page | Description |
+|---|---|
+| Executive Overview | Industry KPIs, top delayed airports, cancellation by type, OTP by month and airline |
+| Airline Analysis | Airline slicer, cancellation rate, OTP ranking, performance scorecard, delay by airline |
+| Time Analysis | Best and worst month and day, OTP by day, cancellation by day, flights by time slot |
+| Conclusion | Airport summary cards, departure delay by airport, cancellation by airport, airport scorecard |
 
 ---
 
 ## Dashboard Screenshots
 
 ### Executive Overview
-![Executive Overview](executive_overview.png)
+![Executive Overview](Executive%20Overview.png)
 
-### Airline Performance
-![Airline Performance](airline_performance.png)
+### Airline Analysis
+![Airline Analysis](Airline%20Analysis.png)
 
-### Airport and Route Analysis
-![Airport Route Analysis](airport_route_analysis-2.png)
+### Time Analysis
+![Time Analysis](Time%20Analysis.png)
 
-## Dashboard Pages
+### Conclusion
+![Conclusion](Conclusion.png)
 
-### 1. Executive Overview
+---
 
-* Industry KPIs
-* OTP analysis
-* Delay trends
-* Airline rankings
+## Key Findings
 
-### 2. Airline Performance Deep Dive
-
-* Executive scorecard
-* Delay cause analysis
-* Cancellation analysis
-* Airline comparisons
-
-### 3. Airport & Route Analysis
-
-* Airport congestion analysis
-* Route delay analysis
-* Taxi-out performance
-* Operational bottlenecks
+- Industry OTP is 82.14% with an average arrival delay of 4.41 minutes
+- Hawaiian Airlines leads at 89.47% OTP and Spirit Air Lines trails at 71.25%
+- October is the best month and June the worst at 9.60 minutes average delay
+- Saturday has the best OTP at 84.67% and Monday has the highest cancellation rate at 2.43%
+- Weather drives 54.35% of cancellations but carrier issues account for 28.11%
+- Atlanta is the busiest airport and Chicago O'Hare is the most congested major hub
+- The 08:00 to 12:00 window carries the highest flight volume at 1.46 million departures
 
 ---
 
 ## SQL Highlights
 
-* Performed data quality audit across 6 validation dimensions
-* Created cleaned views filtering cancelled and diverted flights
-* Built KPI views using aggregations and window functions
-* Used SQL concepts such as:
-
-  * CASE WHEN
-  * COALESCE()
-  * NULLIF()
-  * RANK() OVER()
-  * CTEs
-  * Aggregations and joins
-
----
-
-## Project Structure
-
-```text
-us-airline-performance-analysis/
-│
-├── data/
-│   └── raw/                  Raw CSV files
-│
-├── sql/                      SQL scripts
-│   ├── 01_database_setup.sql
-│   ├── 02_data_cleaning.sql
-│   ├── 03_eda_analysis.sql
-│   └── 04_kpi_views.sql
-│
-├── powerbi/
-│   └── US_Airline_Performance_Analysis.pbix
-│
-├── reports/
-│   └── Business_Insights_Report.docx
-│
-└── README.md
-```
-
----
-
-## How to Run the Project
-
-1. Install PostgreSQL and pgAdmin
-2. Create a database named:
-   `airline_performance`
-3. Import the CSV datasets
-4. Run SQL scripts in sequence:
-
-   * 01_database_setup.sql
-   * 02_data_cleaning.sql
-   * 03_eda_analysis.sql
-   * 04_kpi_views.sql
-5. Open Power BI Desktop
-6. Connect Power BI to PostgreSQL
-7. Load all required tables and views
-8. Open the `.pbix` dashboard file
+- Added flight_date as a proper DATE column using MAKE_DATE for time intelligence
+- Added cancellation_reason_desc to convert A, B, C, D codes into readable labels
+- Created vw_flight_analysis, a consolidated view joining all three tables
+- Used window functions, RANK(), CASE WHEN, COALESCE(), and NULLIF() throughout
+- All KPI queries written and validated in PostgreSQL before connecting to Power BI
 
 ---
 
 ## Business Recommendations
 
-Based on the analysis, the following recommendations were identified:
+- Add schedule buffers on chronically delayed routes to improve reported OTP
+- Reduce the 28% carrier-driven cancellation share through better maintenance planning
+- Rebalance peak hour scheduling at ORD, DFW, and EWR to reduce congestion
+- Treat June and July as high-risk operational periods with dedicated staffing plans
+- Position spare aircraft and crew at major hubs on Sunday evenings to reduce Monday cancellations
 
-* Improve schedule buffers for high-risk routes
-* Reduce carrier-related operational delays
-* Redistribute peak-hour traffic at congested airports
-* Improve maintenance and crew scheduling processes
-* Strengthen operational planning during high-demand days
+---
 
-These actions could significantly improve OTP performance and reduce operational disruptions.
+## How to Run
+
+1. Install PostgreSQL and pgAdmin
+2. Create a database called airline_performance
+3. Run US_Airline_Analysis.sql to create tables, views, and KPI queries
+4. Open Power BI Desktop and connect to PostgreSQL on localhost
+5. Load vw_flight_analysis as the data source
+6. Open US_Airline_Performance_Analysis.pbix
 
 ---
 
 ## Author
 
-Raju Kumar S  
-Data Analyst | Bengaluru, India  
+Raju Kumar S
+Data Analyst, Bengaluru, India
 
-- GitHub: [RajuKumar31](https://github.com/RajuKumar31)
-- LinkedIn: [rajukumarsahani](https://linkedin.com/in/rajukumarsahani)
-- Tableau: [Raju Kumar S](https://public.tableau.com/app/profile/raju.kumar.s1115)
+- LinkedIn: [linkedin.com/in/rajukumarsahani](https://linkedin.com/in/rajukumarsahani)
+- GitHub: [github.com/RajuKumar31](https://github.com/RajuKumar31)
+- Portfolio: [rajukumar31.github.io](https://rajukumar31.github.io)
